@@ -23,9 +23,9 @@ This project comes with 3 style files that can either be placed in your project 
 1. markolsonmath.sty [Optional]
 
 If you are using CoCalc, then your local _texmf_ can be found in your home directory:
-_~/texmf/tex/latex/_
+`~/texmf/tex/latex/`
 
-Each worksheet is built using the latex article document class layout. It is further styled using the markolsonworksheet.sty file. The colors used for the worksheet are being referenced from the markolsoncolorsthlm.sty file.  Of course, you could either define your own colors directly in the markolsonworksheet.sty file or update markolsoncolorsthml.sty to fulfill your color choices.
+Each worksheet is built using the latex article document class layout. It is further styled using the markolsonworksheet.sty file. The colors used for the worksheet are being referenced from the markolsoncolorsthlm.sty file.  Of course, you could either define your own colors directly in the `markolsonworksheet.sty file or update markolsoncolorsthml.sty to fulfill your color choices.
 
 The markolsonmath.sty file is not required.  It is a collection of commands that I use to typeset my latex documents. By default, you should not need to install this package (include this style file in your preamble).  
 
@@ -44,9 +44,9 @@ The markolsonmath.sty file is not required.  It is a collection of commands that
 %\usepackage{markolsonmath}
 ```
 
-Here we can see that we are using the **article** document class with the options of a4paper and 11 point being passed to it.  Notice that both the _markolsonworksheet_ and _markolsoncolorsthlm_ packages are being called while the line used to call the _markolsonmath_ package is commented out.  For some worksheets, you might want to include a package to help format your content.  
+Here we can see that we are using the **article** document class with the options of a4paper and 11 point being passed to it.  Notice that both the `markolsonworksheet` and `markolsoncolorsthlm` packages are being called while the line used to call the _markolsonmath_ package is commented out.  For some worksheets, you might want to include a package to help format your content.  
 
-For example, you might be creating a worksheet with with questions that involve column addition that could be easily typeset using xlop package.  All you need to do is append the _\usepackage{xlop}_ to your preamble.
+For example, you might be creating a worksheet with with questions that involve column addition that could be easily typeset using xlop package.  All you need to do is append the `\usepackage{xlop}` to your preamble.
 
 ``` tex
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -65,7 +65,7 @@ For example, you might be creating a worksheet with with questions that involve 
 
 #### The Header Title
 
-Each worksheet has the same title _Worksheet_.  The worksheet header title is globally defined in the markolsonworksheet.sty file and included on the worksheet using the _\maketitle_ command.  
+Each worksheet has the same title _Worksheet_.  The worksheet header title is globally defined in the `markolsonworksheet.sty` file and included on the worksheet using the `\maketitle` command.  
 
 ``` tex
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -76,14 +76,18 @@ Each worksheet has the same title _Worksheet_.  The worksheet header title is gl
 
 \maketitle % Print the title section
 ```
-Of course, you could choose to design your custom title from the style file or manually create your own title 
+Of course, you could choose to design your custom title from the style file or manually create your own title by replacing the `\maketitle` command with your own.
 
 #### SageSilent Environement
 
-The SageSilent environment is where all the magic happens. You write your sage code within this environment that will be used generate two variables: 
+The SageSilent environment is where all the magic happens as it is within this environment where you will write the majority of your sage code to generate your document. 
 
-1. _qoutput_ : a raw string of latex code to generate each question
-1. _aoutput_ : a raw string of latex code to generate each answer 
+To under
+
+For the majority of the worksheets that I generate, I am interested in generating two variables.
+
+1. `qoutput` : a raw string of latex code to generate each question
+1. `aoutput` : a raw string of latex code to generate each answer 
 
 
 
