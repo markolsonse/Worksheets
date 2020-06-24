@@ -1,0 +1,105 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	DOCUMENT CLASS & PACKAGES
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{markolsonworksheet}
+\usepackage{markolsoncolorsthlm}
+\usepackage{markolsonmath}
+\usepackage{xlop}
+
+\newcommand\hole[1]{\texttt{\_}}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	BEGIN DOCUMENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{document}
+
+\maketitle % Print the title section
+
+\setlength{\parskip}{0pt plus \smallskipamount}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	SAGE SILENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{sagesilent}
+
+t = ZZ.random_element(999999)
+set_random_seed(t)
+
+numberOfQuestions = 24
+
+multiplicandDigits = 3
+multiplierDigits = 4
+
+if multiplicandDigits == 4:
+  multiplicandMin = 1000
+  multiplicandMax = 10000
+elif multiplicandDigits == 3:
+  multiplicandMin = 100
+  multiplicandMax = 1000
+else:
+  multiplicandMin = 10
+  multiplicandMax = 100
+
+if multiplierDigits == 4:
+  multiplierMin = 1000
+  multiplierMax = 10000
+elif multiplierDigits == 3:
+  multiplierMin = 100
+  multiplierMax = 1000
+else:
+  multiplierMin = 10
+  multiplierMax = 100
+
+
+multiplicand = [ZZ.random_element(multiplicandMin,multiplicandMax) for i in range(numberOfQuestions)]
+multiplier = [ZZ.random_element(multiplierMin,multiplierMax) for i in range(numberOfQuestions)]
+
+qoutput = ""
+aoutput = ""
+
+for i in range(numberOfQuestions):
+  qoutput += r"\item \quad \parbox{{1\textheight}}{{ \opmul[resultstyle=\hole,intermediarystyle=\hole]{{{}}}{{{}}}}}".format(multiplicand[i],multiplier[i])
+
+for i in range(numberOfQuestions):
+  aoutput += r"\item \quad \parbox{{1\textheight}}{{\cRed{{\opmul{{{}}}{{{}}}}}}}".format(multiplicand[i],multiplier[i])
+
+\end{sagesilent}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET INSTRUCTIONS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\centering{Find the following products}\\
+\vspace{1cm}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET LAYOUT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{multicols}{4}
+
+\begin{enumerate}
+\sagestr{qoutput}
+\end{enumerate}
+
+\end{multicols}
+
+\customfoot
+
+\newpage
+\answers
+
+\vspace{1cm}
+\begin{multicols}{4}
+
+\begin{enumerate}
+\sagestr{aoutput}
+\end{enumerate}
+
+\end{multicols}
+
+\customfoot
+\end{document}

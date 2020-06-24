@@ -1,0 +1,73 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	DOCUMENT CLASS & PACKAGES
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{markolsonworksheet}
+\usepackage{markolsoncolorsthlm}
+\usepackage{markolsonmath}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	BEGIN DOCUMENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	SAGE SILENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{sagesilent}
+
+t=ZZ.random_element(999999)
+set_random_seed(t)
+numberOfQuestions = 60
+largestPositiveInteger = 100
+setOfPositiveIntegers = []
+while len(setOfPositiveIntegers) < numberOfQuestions:
+  generatedPositiveInteger = (1)^(ZZ.random_element(1,3))*(ZZ.random_element(2,largestPositiveInteger+1))
+  if is_prime(generatedPositiveInteger) == False and (generatedPositiveInteger in setOfPositiveIntegers) == False :
+    setOfPositiveIntegers.append(generatedPositiveInteger)
+
+qoutput = ""
+aoutput = ""
+
+question = [latex(setOfPositiveIntegers[i]) for i in range(len(setOfPositiveIntegers))]
+answer = [latex(factor(setOfPositiveIntegers[i])) for i in range(len(setOfPositiveIntegers))]
+
+for i in range(len(setOfPositiveIntegers)):
+  qoutput += r"\item $%s$" %(question[i])
+  aoutput += r"\item \cRed{$%s$}" %(answer[i])
+
+\end{sagesilent}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET INSTRUCTIONS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\centering{Express the following positive integers as a product of prime number factors}\\
+\vspace{0.5cm}
+
+\begin{multicols}{5}
+\begin{enumerate}
+\sagestr{qoutput}
+\end{enumerate}
+\end{multicols}
+
+\vfill
+\cuthere
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	ANSWERS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{multicols}{5}
+\begin{enumerate}
+\sagestr{aoutput}
+\end{enumerate}
+\end{multicols}
+\customfoot
+\end{document}
+
