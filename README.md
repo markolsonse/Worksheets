@@ -95,7 +95,7 @@ begin{enumerate}
  .
  \item Question n
 \end{enumerate}
-
+```
 The number of questions on a given worksheet will vary, so we are going to have sage generate the latex code necessary to generate each `\item` line of the enumerated environment.  Sage is now in charge of writing some latex code and we can forget about having to write each `\item` line of enumerated environment for each unique worksheet.  Good eh?
 
 Sage will be used to assign all `\item` lines to a variable called `qoutput` of type raw string and we can access that variable in our latex code using a `\sagestr{}` command.  I choose the variable qoutput for _question output_, but you could easily change this to something more to your liking.  Now, our enumerated environment is simplified to one line of code and can generate a `\item` line for each question within our enumerated environment:
