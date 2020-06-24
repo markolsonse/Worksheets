@@ -1,0 +1,173 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+% Name:     2-markolsonmath.sty
+% Author:   Mark Olson
+% Created:  2017-01-18
+% Updated:  20190513-094321
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	PACKAGE OPTIONS & SETUP
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{markolsonmath}
+    [2017/04/12 A small package for Math customizations]
+
+% > > > Load Packages
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+%\RequirePackage{amsthm}
+\RequirePackage{calc}
+\RequirePackage{cancel}
+\RequirePackage{diffcoeff}[ISO]
+\diffdef {}
+{
+    op-symbol = \textnormal{d}
+}
+\RequirePackage{mathtools}
+\usepackage{polynom} % multiple column layout facilities
+\usepackage{xfrac}
+\usepackage{epsdice}
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	BLOCK COMMENT/HIDE CODE
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%\newcommand{\comment}[1]{}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	GLOBAL MATH 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+% > > > Units
+\newcommand{\unit}[1]{\ensuremath{\, \textnormal{#1}}}
+\newcommand{\degree}{^{\circ}} % Degrees
+\newcommand{\rad}{\unit{rad}} % Radians
+%\newcommand{\permille}{\text{\textperthousand}} %Permille: Depricated now using \permil from warsysym package.
+
+
+% > > > Operators
+\DeclareMathOperator{\oneg}{\raisebox{0.2em}{--}} % Negative Prefix Operator
+\DeclareMathOperator{\opos}{\raisebox{0.2em}{+}} % Postive Prefix Operator
+
+% > > > Highlighting
+\newcommand{\hl}[1]{\colorbox{\cnPurple!25}{$\displaystyle#1$}}
+\newcommand{\hlp}[1]{\colorbox{\cnPurple!25}{$\displaystyle#1$}}
+\newcommand{\hlo}[1]{\colorbox{\cnOrange!25}{$\displaystyle#1$}}
+\newcommand{\hlr}[1]{\colorbox{\cnRed!25}{$\displaystyle#1$}}
+\newcommand{\hlg}[1]{\colorbox{\cnGreen!25}{$\displaystyle#1$}}
+\newcommand{\hldg}[1]{\colorbox{\cnDarkGrey!25}{$\displaystyle#1$}}
+\newcommand{\hlb}[1]{\colorbox{\cnBlue!25}{$\displaystyle#1$}}
+
+% > > > Delimiters
+\newcommand{\mpar}[1]{\left(#1\right)} % Parenthesis
+\newcommand{\sqpar}[1]{\left[#1\right]} % Square brackets
+
+% > > > Sets
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\suchthat}{\;:\;}
+
+% > > > Set of Integers
+\newcommand{\setN}{\ensuremath{\mathbb{N}}} % Set of Natural Numbers
+\newcommand{\setZ}{\ensuremath{\mathbb{Z}}} % Set of Integers
+\newcommand{\setZn}{\ensuremath{\mathbb{Z}^{-}}} % Set of Negative Integers
+\newcommand{\setZp}{\ensuremath{\mathbb{Z}^{+}}} % Set of Positive Integers
+\newcommand{\setZs}{\ensuremath{\mathbb{Z}^{*}}} % Set of Non-Negative Integers
+\newcommand{\setE}{\ensuremath{\mathbb{E}}} % Set of Even Integers
+\newcommand{\setO}{\ensuremath{\mathbb{O}}} % Set of Odd Integers
+\newcommand{\setP}{\ensuremath{\mathbb{P}}} % Set of Prime Integers
+
+\newcommand{\ceil}[1]{\left \lceil #1 \right \rceil } % Ceiling Function
+\newcommand{\floor}[1]{\left \lfloor #1 \right \rfloor } % Floor Function
+
+% > > > Set of Rationals
+\newcommand{\setQ}{\ensuremath{\mathbb{Q}}} % Set of Rationals
+\newcommand{\setQn}{\ensuremath{\mathbb{Q}^{-}}} % Set of Negative Rationals
+\newcommand{\setQp}{\ensuremath{\mathbb{Q}^{+}}} % Set of Postive Rationals
+\newcommand{\setQs}{\ensuremath{\mathbb{Q}^{*}}} % Set of Non-Negative Rationals
+\newcommand{\setnotQ}{\ensuremath{\overline{\mathbb{Q}}}} % Set of Irrationals (not rational)
+\newcommand{\rfrac}[2]{\left.{#1}\middle/{#2}\right.} % Solidus Fraction
+
+% > > > Set of Reals
+\newcommand{\setR}{\ensuremath{\mathbb{R}}} % Set of Reals
+\newcommand{\setRp}{\ensuremath{\mathbb{R}^{+}}} % Set of Positive Reals
+\newcommand{\setRn}{\ensuremath{\mathbb{R}^{-}}} % Set of Negative Reals
+\newcommand{\setRs}{\ensuremath{\mathbb{R}^{*}}} % Set of Non-Negative Reals
+
+% > > > Set of Complex
+\newcommand{\setC}{\ensuremath{\mathbb{C}}} % Set of Complex 
+\newcommand{\impart}{\textrm{Im}} % Imaginary Part
+\newcommand{\repart}{\textrm{Re}} % Real Part
+
+% > > > Sets Probability
+\newcommand{\setU}{\ensuremath{\mathbb{U}}} % Universal Set
+\newcommand{\setS}{\ensuremath{\mathbb{S}}} % Sample Set
+\newcommand{\setComp}{\ensuremath{\mathcal{C}}} % Complement Set
+\newcommand{\cis}{\textnormal{cis}} % CIS
+
+% > > > Sets Functions
+\newcommand{\dom}{\textrm{dom}} % Domain Set
+\newcommand{\codom}{\textrm{cod}} % Range Set
+\newcommand{\setImage}{\text{img}} % Image Set
+
+% > > > Statistics
+%\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu} % Change the width of overline by using a new command called overbar
+
+% Equations
+\newcommand{\crossm}{\prescript{\cRed{\nwarrow}}{\cBlue{\swarrow}}{=}^{\cBlue{\nearrow}}_{\cRed{\searrow}}} % Cross Multiplication
+\newcommand{\defeq}{\stackrel{\textup{\tiny def}}{=}} % Definition
+\newcommand{\deq}{\coloneqq} % Colon := Equation
+\newcommand{\cto}[1]{\cRed{\cancelto{1}{#1}}} % Cancel to
+\newcommand{\lj}[1]{&& \text{\cDarkGrey{#1}}} % Line Justification
+
+% > > > Geometry
+\newcommand{\mangle}{\measuredangle}
+\newcommand{\lines}[1]{\overline{#1}}
+\newcommand{\liner}[1]{\overrightarrow{#1}}
+\newcommand{\linel}[1]{\overleftrightarrow{#1}}
+
+% > > > Functions
+\newcommand{\farg}[1]{\left[\cBlue{\boldsymbol{#1}}\right]} % Function Argument
+\delimitershortfall-1sp % Absolute Value
+\newcommand\abs[1]{\left|#1\right|} %Absolute Value
+\newcommand{\lcm}{\text{lcm}} % LCM
+\newcommand{\hcf}{\text{hcf}} % LCM
+\newcommand{\inv}{^{-1}} % Inverse
+
+% > > > Vectors
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|} % Normal vector
+\newcommand{\hangle}[1]{\hat{#1}} % Component hat
+\newcommand{\ihat}{\hat{\imath}} % i hat
+\newcommand{\jhat}{\hat{\jmath}} % j hat
+\newcommand{\khat}{\hat{k}} % k hat
+
+% > > > Limits
+\newcommand{\limit}{\displaystyle\lim}
+
+% > > > Differential Calculus: Curve Sketching 
+\newcommand{\posf}{\cBlue{$+$}} % Positive
+\newcommand{\negf}{\cRed{$-$}} % Negative
+\newcommand{\decf}{\cRed{$\searrow$}} % Decreasing f
+\newcommand{\incf}{\cBlue{$\nearrow$}} % Increasing f
+\newcommand{\smilef}{\cBlue{$\smile$}} % Concave up
+\newcommand{\frownf}{\cRed{$\frown$}} % Concave down
+\newcommand{\inflection}{$\sim$} % Inflection
+\newcommand{\stationary}{$-$} % Stationary
+
+% > > > Cell Background Colors 
+\newcommand{\cellyes}{\cellcolor{\cnLightGreen}Yes} % Cell YES
+\newcommand{\cellno}{\cellcolor{\cnLightRed}No} % Cell NO
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	GLOBAL UNITS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\newcommand{\timg}[1]{\raisebox{-1\height}{#1}}
+\newcommand{\mimg}[1]{\raisebox{-0.5\height}{#1}}
+
+
+\endinput
+%%
+%% End of file `markolsonmath.sty'.
