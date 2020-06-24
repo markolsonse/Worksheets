@@ -27,7 +27,7 @@ set_random_seed(t)
 numberOfQuestions = 100
 smallestFactor = 3
 largestFactor = 13
-negativeFactors = True
+negativeFactors = False
 
 if negativeFactors == False:
   multiplicand=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
@@ -42,9 +42,9 @@ qoutput = ""
 aoutput = ""
 
 for question in range(numberOfQuestions):
-  qoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\phantom{{1}}}}".format(multiplicand[i], multiplier[i])
+  qoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\phantom{{1}}}}".format(multiplicand[question], multiplier[question])
 
-  aoutput +=r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\cRed{{{}}}}}" .format(multiplicand[i], multiplier[i], answer[i])
+  aoutput +=r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\cRed{{{}}}}}" .format(multiplicand[question], multiplier[question], answer[question])
 
 \end{sagesilent}
 
