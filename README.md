@@ -13,24 +13,23 @@
 				<img src="https://img.shields.io/badge/sagetex-orange.svg" />
 </p>
 
-Worksheet is a LaTeX project used to create randomly generated single sided worksheets that can be easily reproduced.  Both the questions and answers on a given worksheet are generated using SageMath and typeset using LaTeX.  This is of course only possible by using the sagetex package. This project has been designed to easily run on CoCalc, but it can also be made to work on a local MacOs/Linux install with some care and attention given to ensuring all the dependencies are correctly installed.  If you are using >= MacOS 10.15, then getting SageMath to install locally in my experience has been a real pain, which is why I prefer to just run this project on CoCalc.
+Worksheets is a LaTeX project used to create randomly generated single-sided worksheets that can be easily reproduced.  Both the questions and answers on a given worksheet are generated using SageMath and typeset using LaTeX. It is the `sagetex.sty` package that provides latex the access to SageMath to perform calculations and reference stored values. This worksheets project has been designed to easily run on CoCalc, but it can also be made to work on a local MacOs/Linux machine with some care and attention to ensuring all the dependencies are satisfied.  If you are using >= MacOS 10.15, then getting SageMath to install locally in my experience has been a massive headache, which is why I prefer to just run anything using SageMath on CoCalc. 
+
 
 ## Style Files
 
-This project comes with 3 style files that can either be placed in your project folder or stored in your local _texmf_ folder:
+This project comes with 3 style files that can either be placed in the folder where your foo.tex file are stored or in your local _texmf_ folder:
 
 1. markolsonworksheet.sty [Required]
 1. markolsoncolorsthlm.sty [Required]
 1. markolsonmath.sty [Optional]
 
-You must also have a working `sagetex.sty` style file either in your latex path or project directory that corresponds to the SageMath release installed on your computer.  
+You must also have a working `sagetex.sty` style file either in your latex path or project directory that corresponds to the SageMath release installed on your computer.  CoCalc ensures the correct file is in the correct place, so nothing required by the user here.  Note that if you are using CoCalc, then your local _texmf_ can be found in your home directory:
+`~/texmf/tex/latex/`.  Your sagetex.sty should already be included in this path if you are using CoCalc.
 
-If you are using CoCalc, then your local _texmf_ can be found in your home directory:
-`~/texmf/tex/latex/`.  By default sagetex will already be included in this directory if you are using CoCalc.
+Each worksheet is built using the latex article document class layout. It is further styled using the markolsonworksheet.sty file. The colors used for the worksheet are being referenced from the `markolsoncolorsthlm.sty` file.  Of course, you could modify the existing color definintions in the `markolsoncolorsthlm.sty` file or define your own directly in the `markolsonworksheet.sty` to fulfill your color choice preferences.
 
-Each worksheet is built using the latex article document class layout. It is further styled using the markolsonworksheet.sty file. The colors used for the worksheet are being referenced from the markolsoncolorsthlm.sty file.  Of course, you could either define your own colors directly in the `markolsonworksheet.sty file or update markolsoncolorsthml.sty to fulfill your color choices.
-
-The markolsonmath.sty file is not required.  It is a collection of commands that I use to typeset my latex documents. By default, you should not need to install this package (include this style file in your preamble).  
+The `markolsonmath.sty` file is not required.  It is simply a collection of commands that I use to typeset my latex documents. By default, you should not need to include this package in your preamble.  
 
 ## Document Structure
 
@@ -47,9 +46,9 @@ The markolsonmath.sty file is not required.  It is a collection of commands that
 %\usepackage{markolsonmath}
 ```
 
-Here we can see that we are using the **article** document class with the options of a4paper and 11 point being passed to it.  Notice that both the `markolsonworksheet` and `markolsoncolorsthlm` packages are being called while the line used to call the _markolsonmath_ package is commented out.  For some worksheets, you might want to include a package to help format your content.  
+The preamble starts by defining the document class as article with options of a4paper and 11 point font.  Notice that both the `markolsonworksheet` and `markolsoncolorsthlm` packages are being called while the line used to call the `markolsonmath` package is commented out.  
 
-For example, you might be creating a worksheet with with questions that involve column addition that could be easily typeset using xlop package.  All you need to do is append the `\usepackage{xlop}` to your preamble.
+For some worksheets, you might want to include a package to help format your content.  For example, you might be creating a worksheet with with questions that involve column addition that could be easily typeset using the xlop package.  All you need to do is append the `\usepackage{xlop}` to your preamble.
 
 ``` tex
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -77,14 +76,14 @@ Each worksheet has the same title _Worksheet_.  The worksheet header title is gl
 
 \begin{document}
 
-\maketitle % Print the title section
+\maketitle % Print the title 
 ```
-Of course, you could choose to design your custom title from the style file or manually create your own title by replacing the `\maketitle` command with your own.
+Of course, you could choose to design your custom title from the style file or manually create your own title by replacing the `\maketitle` command with your own custom title.
 
 
 #### Worksheets Questions & Answers
 
-While the `sagesilent` environment is written before the LaTeX code used to write the worksheet questions and answers, we should first consider what it is we want to be expressed on the worksheet.  First, we would like to create an enumerated environment and populate it with items that represent the questions.  
+While the `sagesilent` environment is written before the latex code used to typeset the worksheet questions and answers, we should first consider what it is we want to be expressed on the worksheet.  First, we would like to create an enumerated environment and populate it with items that represent the questions.  
 
 ```latex
 begin{enumerate}
