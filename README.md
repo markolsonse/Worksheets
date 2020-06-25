@@ -77,7 +77,7 @@ For some worksheets, you might want to include a package to help format your con
 
 Each worksheet has the same title _Worksheet_.  The worksheet header title is globally defined in the `markolsonworksheet.sty` file and included on the worksheet using the `\maketitle` command.  
 
-``` tex
+```latex
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	DOCUMENT CLASS & PACKAGES
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -125,7 +125,7 @@ Now we have a goal to have sage generate two variables `qoutput` and `aoutput`.
 
 #### SageSilent Environment
 
-The SageSilent environment is where all the magic happens as it is within this environment where you will write the majority of the code necessary to generate the questions, the answers and the latex code necessary to display them.  In general, we will be looking to define the two variables `qoutput` and `aoutput`.
+The SageSilent environment is where all the magic happens as it is within this environment where you will write the majority of the code necessary to generate the questions, the answers and the perhaps the latex code necessary to display them.  In general, we will be looking to define the two variables `qoutput` and `aoutput`.
 
 Since our worksheets are going to be randomly generated and we also want to be able to reproduce these worksheets, so we are going to want to define the random seed used to generate all the random values in our worksheet by setting the variable `t` to a randomly generated integer that will then be used to set the random seed.
 
@@ -134,26 +134,227 @@ t=ZZ.random_element(999999)
 set_random_seed(t)
 ````
 
-Each worksheet will generate a random integer value of `t` and will be displayed on the worksheet footer.  This will then allow you to manually enter this value as the argument of the `set_random_seed(t)`, if needed, to reproduce the randomly generated questions and answers.  This makes your randomly generated worksheets reproducible.  
-
 <p align="center">
     <img src="worksheetExampleFooter.png" width="400" max-width="90%" alt="Publish" />
 </p>
 
-It's now time to start generating some questions so that we can generate 
+Each worksheet will generate a random integer value of `t` and will be displayed on the worksheet footer.  This will then allow you to manually enter this value as the argument of the `set_random_seed(t)`, if needed, to reproduce the randomly generated questions and answers.  This makes your randomly generated worksheets reproducible.  
 
+It's now time to start generating some questions with their corresponding answers.  While the generators may differ for each worksheet you create, the goal remains the same - produce a multiline string of questions and assign it to the variable `qoutput` and a multiline string of answers and assign it to the variable `aoutput`.  These two variables are initialised as empty strings.
 
-
-# SOME CODE GOES HERE 
-# to generate an array of questions and an array of answers.
+```python
+t=ZZ.random_element(999999)
+set_random_seed(t)
 
 qoutput = ""
 aoutput = ""
 
-question = [ SomeArray of questions]
-answer = [ SomeArray of answers]
+```
 
-for i in range(numberOfQuestions):
-  qoutput += r"\item ${}$".format(question[i])
-  aoutput += r"\item \cRed{{${}$}}".format(answer[i])
-``
+Maybe our question is to find the product of two integers.  To generate each question we are going to need:
+
+1. two factors: a multiplicand and a multiplier
+1. an expression: multiplicand x multiplier
+
+To generate each answer, we are going to have Sage evaluate the expression multiplicand x multiplier.
+
+One approach might be to define and initialise the following variables:
+
+- `numberOfQuestions = 100`
+- `smallestFactor = 3`
+_ `largestFactor = 13`
+- `negativeFactors = False`
+
+So here our worksheet should have 100 questions made up of expressions of the form _multiplicand_ x _multiplier_ where the largest factor possible is 13 and the smallest is 3.  We have even set a variable of type Boolean to choose if we want to include negative integers in our products.
+
+```python
+t=ZZ.random_element(999999)
+set_random_seed(t)
+
+qoutput = ""
+aoutput = ""
+
+numberOfQuestions = 100
+smallestFactor = 3
+largestFactor = 13
+negativeFactors = False
+
+```
+
+It is now time to generate our multiplicand and multiplier factors for each question.  Note that we have introduced the possibility of toggling between positive and negative integer factors so we are going to need to consider two cases.  For each case, we are going to assign the variable multiplicand and multiplier to a list of randomly generated integers.  
+ 
+
+```python
+t=ZZ.random_element(999999)
+set_random_seed(t)
+
+qoutput = ""
+aoutput = ""
+
+numberOfQuestions = 100
+smallestFactor = 3
+largestFactor = 13
+negativeFactors = False
+
+if negativeFactors == False:
+  multiplicand=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+else:
+  multiplicand=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+```
+
+Using one line of code,
+`answer=[multiplicand[i]*multiplier[i] for i in range(numberOfQuestions)]`
+we can generate a list of answers.
+
+```python
+t=ZZ.random_element(999999)
+set_random_seed(t)
+
+qoutput = ""
+aoutput = ""
+
+numberOfQuestions = 100
+smallestFactor = 3
+largestFactor = 13
+negativeFactors = False
+
+if negativeFactors == False:
+  multiplicand=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+else:
+  multiplicand=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+
+answer=[multiplicand[i]*multiplier[i] for i in range(numberOfQuestions)]
+
+```
+The last step is to have Sage generate the latex code to write out the `\item`s for both the question and answer enumerated environments.  It is actually, two Python raw strings that we are going to assign to our variables `qoutput` and `aoutput`.  
+
+```python
+for question in range(numberOfQuestions):
+  qoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\phantom{{1}}}}".format(multiplicand[question], multiplier[question])
+
+  aoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\cRed{{{}}}}}" .format(multiplicand[question], multiplier[question], answer[question])
+```
+
+and here is the full sagetex environment code.
+
+```python
+t=ZZ.random_element(999999)
+set_random_seed(t)
+
+qoutput = ""
+aoutput = ""
+
+numberOfQuestions = 100
+smallestFactor = 3
+largestFactor = 13
+negativeFactors = False
+
+if negativeFactors == False:
+  multiplicand=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+else:
+  multiplicand=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+
+answer=[multiplicand[i]*multiplier[i] for i in range(numberOfQuestions)]
+
+qoutput = ""
+aoutput = ""
+
+for question in range(numberOfQuestions):
+  qoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\phantom{{1}}}}".format(multiplicand[question], multiplier[question])
+
+  aoutput +=r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\cRed{{{}}}}}" .format(multiplicand[question], multiplier[question], answer[question])
+```
+
+#### The Document
+
+```latex
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	DOCUMENT CLASS & PACKAGES
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{markolsonworksheet}
+\usepackage{markolsoncolorsthlm}
+\usepackage{markolsonmath}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	BEGIN DOCUMENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	SAGE SILENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{sagesilent}
+
+t=ZZ.random_element(999999)
+set_random_seed(t)
+
+numberOfQuestions = 100
+smallestFactor = 3
+largestFactor = 13
+negativeFactors = False
+
+if negativeFactors == False:
+  multiplicand=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+else:
+  multiplicand=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+  multiplier=[(-1)^(ZZ.random_element(1,3))*ZZ.random_element(smallestFactor,largestFactor+1) for i in range(numberOfQuestions)]
+
+answer=[multiplicand[i]*multiplier[i] for i in range(numberOfQuestions)]
+
+qoutput = ""
+aoutput = ""
+
+for question in range(numberOfQuestions):
+  qoutput += r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\phantom{{1}}}}".format(multiplicand[question], multiplier[question])
+
+  aoutput +=r"\item ${} \, \times \, {}$ \hfill \framebox[10ex]{{\cRed{{{}}}}}" .format(multiplicand[question], multiplier[question], answer[question])
+
+\end{sagesilent}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET INSTRUCTIONS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\centering{Find the following products}\\
+\vspace{0.5cm}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET LAYOUT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{multicols}{4}
+
+\begin{enumerate}
+\sagestr{qoutput}
+\end{enumerate}
+
+\end{multicols}
+
+\customfoot
+
+\newpage
+\answers
+
+\begin{multicols}{4}
+
+\begin{enumerate}
+\sagestr{aoutput}
+\end{enumerate}
+
+\end{multicols}
+
+\customfoot
+\end{document}
+```
