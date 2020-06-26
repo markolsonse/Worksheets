@@ -1,0 +1,105 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	DOCUMENT CLASS & PACKAGES
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{markolsonworksheet}
+\usepackage{markolsoncolorsthlm}
+\usepackage{markolsonmath}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	BEGIN DOCUMENT
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	SAGE SILENT 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	WORKSHEET INSTRUCTIONS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\centering{Linear Regression Olympic Gold Medal Swimming Times for 100m Freestyle}\\
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+\begin{tabular}{ | l | l | c |}
+    \hline
+    Year    &     Men Gold Medalist         & Time \\
+    \hline
+    1912    &    D. Kahanamoku, USA     &    63.4 \\
+    1920    &    D. Kahanamoku, USA     &    61.4 \\
+    1924    &    J. Weissmuller, USA    &    59.0 \\
+    1928    &    J. Weissmuller, USA    &    58.6 \\
+    1932    &    Y. Miyazaki, Japan     &    58.2 \\
+    1936    &    F. Csik, Hungary       &    57.6 \\
+    1948    &    R. Ris, USA            &    57.3 \\
+    1952    &    C. Scholes, USA        &    57.4 \\
+    1956    &    J. Henricks, Austalia  &    55.4 \\
+    1960    &    J. Devitt, Australia   &    55.2 \\
+    1964    &    D. Schollander, USA    &    53.4 \\
+    1968    &    M. Wenden, Australia   &    52.2 \\
+    1972    &    M. Spitz, USA          &    51.22 \\
+    1976    &    J. Montgomery, USA     &    49.99 \\
+    1980    &    J. Woithe, E. Germany  &    50.40 \\
+    1984    &    R. Gains, USA          &    49.80 \\
+    1988    &    M. Biondi, USA         &    48.63 \\
+    1992    &    A. Popov, Russia       &    49.02 \\
+    1996    &    A. Popov, Russia       &    48.74 \\
+    2000    &    P. vd Hoog., Ned       &    48.30  \\
+    2004    &    P. vd Hoog., Ned       &    48.17  \\
+    2008    &    A. Bernard, Fra        &    47.21 \\
+		2012		&    N. Adrian, USA         & 	47.52 \\
+			%2016		&		 K. Chalmers, AUS				&			47.58\\
+    \hline
+    \end{tabular}
+
+\columnbreak
+\begin{tabular}{ | l | l | l |}
+    \hline
+    Year    &     Women Gold Medalist         & Time\\
+    \hline
+    1912    &    F. Durack, Australia          &    82.2 \\
+    1920    &    E. Bleibtry, USA               &    73.6 \\
+    1924    &    E. Lackie, USA                 &    72.4 \\
+    1928    &    A. Osipowich, USA              &    71.0 \\
+    1932    &    H. Madison, USA                &    66.8 \\
+    1936    &    H. Mastenbroek, Holland        &    65.9 \\
+    1948    &    G. Andersen, Denmark           &    66.3 \\
+    1952    &    K. Szoke, Hungary              &    66.8 \\
+    1956    &    D. Fraser, Australia           &    62.0 \\
+    1960    &    D. Fraser, Australia           &    61.2 \\
+    1964    &    D. Fraser, Australia           &    59.5 \\
+    1968    &    J. Henne, USA                  &    60.0 \\
+    1972    &    S. Nielson,USA                 &    58.59 \\
+    1976    &    K. Ender, E. Germany           &    55.65 \\
+    1980    &    B. Krause, E. Germany          &    54.79 \\
+    1984    &    C. Steinseife, USA (tie)       &    55.92 \\
+    1984    &    N. Hogshead, USA (tie)         &    55.92 \\
+    1988    &    K. Otta, E. Germany            &    54.93 \\
+    1992    &    Z. Young, China                &    54.64 \\
+    1996    &    L. Jingyi, China               &    54.50 \\
+		2000    &    I. de Bruijn, Netherlands      &    53.83 \\
+		2004		& 	 J. Henry, Australia            &   53.84 \\
+		2008 		& 	 B. Steffen, Gemany		        	&   53.12 \\
+		2012		&	 R. Kromowidjojo, Netherlands			&   53.00 \\
+		%2016		&				P. Oleksiak									& 	52.70 \\
+    \hline
+    \end{tabular}
+\end{multicols}
+\begin{enumerate}
+\item  Make a scatter plot for each set of data (plot the graph set).
+\item  Find the equation of the line that best fits the given data.
+\item  Graph the regression line (plot the line of best fit).
+\item  Does your linear equation predict the following times swam at the 2016 Rio Olympic games. Men (47.58) \& Women (52.70)
+\item  Based on your linear model, during which year will the women be swimming faster than the men?
+\end{enumerate}
+%\customfoot
+
+\end{document}
+
