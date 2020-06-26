@@ -1,13 +1,11 @@
 <p align="center">
-    <img src="GitHub-Worksheets.png" width="400" max-width="90%" alt="Publish" />
+    <img src="assets/GitHub-Worksheets.png" width="400" max-width="90%" alt="Publish" />
 </p>
+
 
 <p align="center">
     <a href = "https://www.sagemath.org">
         <img src="https://img.shields.io/badge/SageMath-9.1-blue.svg" />
-    </a>
-    <a href = "https://www.cocalc.com">
-        <img src="https://img.shields.io/badge/CoCalc-orange.svg" />
     </a>
         <img src="https://img.shields.io/badge/LaTeX-orange.svg" />
 				<img src="https://img.shields.io/badge/sagetex-orange.svg" />
@@ -17,23 +15,78 @@
     <img src="worksheetExampleSideBySide.png" width="400" max-width="90%" alt="Publish" />
 </p>
 
-Worksheets is a LaTeX project used to create randomly generated worksheets that can be easily reproduced and are single-sided.  Both the questions and answers on a given worksheet are generated using SageMath and typeset using LaTeX. It is the `sagetex.sty` package that provides latex the access to SageMath to perform calculations and reference stored values. This worksheets project has been designed to easily run on CoCalc, but it can also be made to work on a local MacOs/Linux machine with some care and attention to ensuring all the dependencies are satisfied.  If you are using >= MacOS 10.15, then getting SageMath to install locally in my experience has been a massive headache, which is why I prefer to just run anything using SageMath on CoCalc. 
+Worksheets is a LaTeX project to create worksheets, mostly relating to mathematics, populated with randomly generated questions and answers that can be easily reproduced.  It will require that you have a recent distribution of both LaTeX and Sage Math installed on your system in order to compile the `*.tex` and `*.sagetex.sage` files.  All files in this repository were compiled using my current 2017 Macbook setup:
+
+- macOS 10.15.5,
+- MacTeX-2020,
+- SageMath 9.1. 
+
+The repository is made up three main folders in the `worksheets` folder.
+
+1. texmf (`*.sty` files found here)
+1. LatexMath (worksheets typeset using LaTeX - SageMath not required)
+1. LatexSageMath (worksheets generated using SageMath and typeset using LaTeX)
 
 
-## Style Files
+## texmf Files
 
-This project comes with 3 style files that can either be placed in the folder where your foo.tex file are stored or in your local _texmf_ folder:
+This project comes with **3** style files that can either be placed in the folder where your `foo.tex` files are stored (not recommended) or in your local `texmf` folder (recommended):
 
 1. markolsonworksheet.sty [Required]
 1. markolsoncolorsthlm.sty [Required]
 1. markolsonmath.sty [Optional]
 
-You must also have a working `sagetex.sty` style file either in your latex path or project directory that corresponds to the SageMath release installed on your computer.  CoCalc ensures the correct file is in the correct place, so nothing required by the user here.  Note that if you are using CoCalc, then your local _texmf_ can be found in your home directory:
-_~/texmf/tex/latex/_.  Your sagetex.sty should already be included in this path if you are using CoCalc.
+I store these files in my `/usr/local/texlive/texmf-local/tex/latex/` directory, but your local `texmf` directory might have some other path.  Remember to `texhash` after moving your files.
 
-Each worksheet is built using the latex article document class layout. It is further styled using the `markolsonworksheet.sty` file. The colors used for the worksheet are being referenced from the `markolsoncolorsthlm.sty` file; however, you could modify the existing color definitions in the `markolsoncolorsthlm.sty` file or define your own directly in the `markolsonworksheet.sty` to fulfil your color choice preferences.
+You must also have a working `sagetex.sty` style file either in your local `texmf` folder (recommended) or the folder where your `*.tex` files exist (again ... not recommended). I have not included the SageTeX style file as you should copy this from your installed version of Sage.  For example, I copied `/Applications/SageMath-9.1.app/Contents/Resources/sage/local/share/texmf/tex/latex/sagetex/sagetex.sty` to  `/usr/local/texlive/texmf-local/tex/latex/`.  Again, remember to `texhash` after you copy your style files.
+
+Each worksheet is built using the latex article document class layout. It is further styled using the `markolsonworksheet.sty` style file. The colours used for the worksheet are being referenced from the `markolsoncolorsthlm.sty` file; however, you could modify the existing colour definitions in the `markolsoncolorsthlm.sty` file or define your own directly in the `markolsonworksheet.sty` to fulfil your colour choice preferences.
 
 The `markolsonmath.sty` file is not required.  It is simply a collection of commands that I use to typeset my latex documents. By default, you should not need to include this package in your preamble.  
+
+### markolsonworksheet.sty
+
+This package has the latex package dependencies listed below.  In the future, I will be looking to reduce the number of packages necessary in the base style file.  
+ 
+#### Font packages
+ 
+```latex
+\usepackage[full]{textcomp}
+\usepackage{newpxtext} % osf for text, not math
+\usepackage{cabin} % sans serif
+\usepackage[varqu,varl]{inconsolata} % sans serif typewriter
+\usepackage[bigdelims,vvarbb]{newpxmath} % bb from STIX
+\usepackage[cal=boondoxo]{mathalfa} % mathcal
+\usepackage{pdfpages} % Create Worksheet Sets
+
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage[utf8]{inputenc} % Required for including letters with accents
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+```
+
+#### Default Packages
+
+```latex 
+\usepackage{
+	amssymb,
+	caption,
+	color,
+	cancel,
+	datetime,
+	enumitem,
+	graphicx,
+	hyperref,
+	colortbl,
+	mathtools,
+	multicol,
+	multirow,
+  pifont,
+	sagetex,
+	wrapfig,
+	xcolor,
+	xspace
+}
+```
 
 ## Document Structure
 
@@ -54,7 +107,7 @@ The preamble starts by defining the document class as article with options of a4
 
 For some worksheets, you might want to include a package to help format your content.  Suppose you are creating a worksheet with with questions that involve column addition that could be easily typeset using the xlop package. Then all you need to do is append the `\usepackage{xlop}` to your preamble.
 
-``` tex
+```latex
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	DOCUMENT CLASS & PACKAGES
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -72,7 +125,7 @@ For some worksheets, you might want to include a package to help format your con
 #### The Header Title
 
 <p align="center">
-    <img src="worksheetExampleTitle.png" width="400" max-width="90%" alt="Publish" />
+    <img src="assets/worksheetExampleTitle.png" width="400" max-width="90%" alt="Publish" />
 </p>
 
 Each worksheet has the same title _Worksheet_.  The worksheet header title is globally defined in the `markolsonworksheet.sty` file and included on the worksheet using the `\maketitle` command.  
@@ -135,7 +188,7 @@ set_random_seed(t)
 ````
 
 <p align="center">
-    <img src="worksheetExampleFooter.png" width="400" max-width="90%" alt="Publish" />
+    <img src="assets/worksheetExampleFooter.png" width="400" max-width="90%" alt="Publish" />
 </p>
 
 Each worksheet will generate a random integer value of `t` and will be displayed on the worksheet footer.  This will then allow you to manually enter this value as the argument of the `set_random_seed(t)`, if needed, to reproduce the randomly generated questions and answers.  This makes your randomly generated worksheets reproducible.  
