@@ -44,6 +44,7 @@
 	multicol,
 	multirow,
   pifont,
+	sagetex,
 	wrapfig,
 	xcolor
 }
@@ -86,6 +87,15 @@ xspace
 \end{center}
 }
 
+\newcommand{\customfoot}{
+\vfill
+\begin{center}
+\cDarkGrey{\emph{Made with SageMath \cRed{$\heartsuit$}  \LaTeX\,\large --- by MarkOlson\textsuperscript{SE}}}\\
+\vspace{10pt}
+{\scriptsize Ref ID:  \jobname}\\
+{\scriptsize Random Seed: $\sage{t}$}
+\end{center}
+}
 
 \newcommand{\customfootnosage}{
 \vfill
