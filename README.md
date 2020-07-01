@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-    <img src="worksheetExampleSideBySide.png" width="400" max-width="90%" alt="Publish" />
+    <img src="assets/worksheetExampleSideBySide.png" width="400" max-width="90%" alt="Publish" />
 </p>
 
 Worksheets is a LaTeX project to create worksheets, mostly relating to mathematics, populated with randomly generated questions and answers that can be easily reproduced.  It will require that you have a recent distribution of both LaTeX and Sage Math installed on your system in order to compile the `*.tex` and `*.sagetex.sage` files.  All files in this repository were compiled using my current 2017 Macbook setup:
