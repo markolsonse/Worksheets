@@ -69,3 +69,16 @@ elif includesSage == 2:
             pass
 else:
     pass
+
+
+# =-= FILES BY EXTENSION
+del_extensions = ["*.aux", "*.lb", "*.fdb_latexmk", "*.snm", "*.fls", "*.mw", "*.toc", "*.lb","*.nav", "*.synctex.gz", "*.vrb", "*.out", "*.log", "*.pytxcode", "*.sagetex.sage", "*.sagetex.sage.py", "*.sagetex.sout", "*.synctex.gz", "*.sagetex.scmd", "*.synctex(busy)"]
+for del_extension in del_extensions:
+    for filename in Path(path).rglob(del_extension):
+        subprocess.run(["rm", filename])
+
+# =-= DIRECTORIES TO BE RECURSIVELY DELETED
+dir_patterns = ["pythontex-files-*","sage-plots-for*"]
+for dir_pattern in dir_patterns:
+    for dir_name in Path(path).rglob(dir_pattern):
+       subprocess.run(["rm", "-r", dir_name])
