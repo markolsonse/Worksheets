@@ -80,7 +80,7 @@ This package has the latex package dependencies listed below.  In the future, I 
 	mathtools,
 	multicol,
 	multirow,
-  pifont,
+	pifont,
 	sagetex,
 	wrapfig,
 	xcolor,
